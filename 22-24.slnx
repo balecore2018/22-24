@@ -1,4 +1,5 @@
 <Solution>
-  <Project Path="22-24/22-24.csproj" />
-  <Project Path="ClassModule/ClassModule.csproj" />
+  <Project Path="22-24/22-24.csproj" Id="adfc04ef-03c6-45c9-ad5d-9a6cfbe501e9" />
+  <Project Path="ClassConnection/ClassConnection.csproj" Id="2c7c1c6d-0e5a-49fa-bdcd-700e543f9075" />
+  <Project Path="ClassModule/ClassModule.csproj" Id="4ab72d97-0617-4db3-8953-97dde57dec2e" />
 </Solution>
