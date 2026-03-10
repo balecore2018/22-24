@@ -67,8 +67,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +100,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\back.png" />
+    <Resource Include="img\calendar.png" />
+    <Resource Include="img\calls.png" />
+    <Resource Include="img\del.png" />
+    <Resource Include="img\in.png" />
+    <Resource Include="img\logo.png" />
+    <Resource Include="img\ok.png" />
+    <Resource Include="img\out.png" />
+    <Resource Include="img\people.png" />
+    <Resource Include="img\plus.png" />
+    <Resource Include="img\redac.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Elements\" />
+    <Folder Include="Resourse\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
