@@ -92,7 +92,7 @@ namespace _22_24.Pages.PagesUser
                 {
                     User id_temp_user;
                     if (user_select.SelectedItem != null)
-                        id_temp_user = MainWindow.connect.users.Find(x => x.id == Convert.ToInt32(((ComboBoxItem)user_select.SelectedItem.Tag)));
+                        id_temp_user = MainWindow.connect.users.Find(x => x.id == Convert.ToInt32(((ComboBoxItem)user_select.SelectedItem).Tag));
                     else
                     {
                         MessageBox.Show("Запрос не был обработан. Вы не указали пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);

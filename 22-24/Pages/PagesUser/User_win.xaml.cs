@@ -2,7 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-
+using static _22_24.Classes.Common;
 
 
 namespace _22_24.Pages.PagesUser

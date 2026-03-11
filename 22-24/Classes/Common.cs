@@ -9,7 +9,6 @@ namespace _22_24.Classes
 {
     public class Common
     {
-
         public bool IsNumber(string str)
         {
             Match m = Regex.Match(str, @"\+79[0-9]{9}$");

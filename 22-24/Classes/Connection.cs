@@ -5,11 +5,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static _22_24.Classes.Common;
 
 namespace _22_24.Classes
 {
     public class Connection
     {
+
+        public bool ItsOnlyFIO { get; set; }
+        public bool ItsNumber { get; set; }
+
         public List<User> users = new List<User>();
         public List<Call> calls = new List<Call>();
 
