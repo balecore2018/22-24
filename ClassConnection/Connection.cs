@@ -72,7 +72,7 @@ namespace ClassConnection
                 if (zap.ToString() == "users")
                 {
                     users.Clear();
-                    while (itemQuery.Read() {
+                    while (itemQuery.Read()) {
                         User newEl = new User();
                         newEl.id = Convert.ToUInt32(itemQuery.GetValue(0));
                         newEl.phone_num = Convert.ToString(itemQuery.GetValue(1));
