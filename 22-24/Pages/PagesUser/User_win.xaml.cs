@@ -1,7 +1,9 @@
-﻿using System;
+﻿using _22_24.Classes;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using ClassModule;
+
+
 
 namespace _22_24.Pages.PagesUser
 {
@@ -45,7 +47,7 @@ namespace _22_24.Pages.PagesUser
 
             if (user_loc.fio_user == null)
             {
-                int id = MainWindow.connect.SetLastId(ClassConnection.Connection.tabels.users);
+                int id = MainWindow.connect.SetLastId(Connection.tabels.users);
 
                 string query = $"INSERT INTO [users]([Код], [phone_num], [FIO_user], [pasport_data]) VALUES ({id.ToString()}, " +
                     $"'{phone_user.Text}', '{fio_user.Text}', '{addrec_user.Text}')";
@@ -53,7 +55,7 @@ namespace _22_24.Pages.PagesUser
                 var pc = MainWindow.connect.QueryAccess(query);
                 if (pc != null)
                 {
-                    MainWindow.connect.LoadData(ClassConnection.Connection.tabels.users);
+                    MainWindow.connect.LoadData(Connection.tabels.users);
                     MessageBox.Show("Успешное добавление клиента", "Успешное", MessageBoxButton.OK, MessageBoxImage.Information);
                     MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.users);
                 }
@@ -71,7 +73,7 @@ namespace _22_24.Pages.PagesUser
                 var pc = MainWindow.connect.QueryAccess(query);
                 if (pc != null)
                 {
-                    MainWindow.connect.LoadData(ClassConnection.Connection.tabels.users);
+                    MainWindow.connect.LoadData(Connection.tabels.users);
                     MessageBox.Show("Успешное изменение клиента", "Успешное", MessageBoxButton.OK, MessageBoxImage.Information);
                     MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.users);
                 }
@@ -92,7 +94,7 @@ namespace _22_24.Pages.PagesUser
         {
             try
             {
-                MainWindow.connect.LoadData(ClassConnection.Connection.tabels.users);
+                MainWindow.connect.LoadData(Connection.tabels.users);
                 Call userFind = MainWindow.connect.calls.Find(x => x.user_id == user_loc.id);
                 if (userFind != null)
                 {
@@ -112,7 +114,7 @@ namespace _22_24.Pages.PagesUser
                 if(pc != null && pc1 != null)
                 {
                     MessageBox.Show("Успешное удаление аккаунта", "Успешное", MessageBoxButton.OK, MessageBoxImage.Information);
-                    MainWindow.connect.LoadData(ClassConnection.Connection.tabels.users);
+                    MainWindow.connect.LoadData(Connection.tabels.users);
                     MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.users);
                 }
                 else

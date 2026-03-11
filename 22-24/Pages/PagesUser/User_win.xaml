@@ -12,17 +12,17 @@
         <Border.Background>
             <SolidColorBrush Color="White" Opacity="1.0"/>
         </Border.Background>
-    </Border>
-    
-    <Grid>
-        <Grid.Resources>
-            <ResourceDictionary Source="/Resource/BtnRes.xaml"/>
-        </Grid.Resources>
 
-        <ScrollViewer x:Name="scroll_user">
-            <Border x:Name="Info_user" MinHeight="530">
-                <Grid>
-                    <Label
+
+        <Grid>
+            <Grid.Resources>
+                <ResourceDictionary Source="/Resource/BtnRes.xaml"/>
+            </Grid.Resources>
+
+            <ScrollViewer x:Name="scroll_user">
+                <Border x:Name="Info_user" MinHeight="530" Width="700">
+                    <Grid>
+                        <Label
                         Content="Клиент"
                         Margin="39,28,26,0"
                         Foreground="Black"
@@ -32,7 +32,7 @@
                         Height="52"
                         VerticalAlignment="Top"/>
 
-                    <Label
+                        <Label
                         Content="ФИО"
                         Margin="39,85,232,0"
                         Foreground="Black"
@@ -42,7 +42,7 @@
                         Height="29"
                         VerticalAlignment="Top"/>
 
-                    <TextBox 
+                        <TextBox 
                             Style="{StaticResource BaseBox}" 
                             x:Name="fio_user" 
                             Height="35"
@@ -50,8 +50,8 @@
                              Margin="39,112,28,0"
                              VerticalAlignment="Top"/>
 
-                    
-                    <Label
+
+                        <Label
                         Content="Телефон"
                         Margin="39,149,232,0"
                         Foreground="Black"
@@ -61,16 +61,16 @@
                         Height="29"
                         VerticalAlignment="Top"/>
 
-                    <TextBox 
+                        <TextBox 
                         Style="{StaticResource BaseBox}" 
                         x:Name="phone_user" 
                         Height="35"
                         Background="#FFDEDEDE"
-                        Margin="39,112,28,0"
+                        Margin="39,179,28,0"
                         VerticalAlignment="Top"/>
 
 
-                    <Label
+                        <Label
                         Content="Паспортные данные"
                         Margin="39,213,232,0"
                         Foreground="Black"
@@ -80,7 +80,7 @@
                         Height="29"
                         VerticalAlignment="Top"/>
 
-                    <TextBox 
+                        <TextBox 
                         Style="{StaticResource BaseBox}" 
                         x:Name="addrec_user" 
                         Height="35"
@@ -88,7 +88,7 @@
                         Margin="39,240,26,0"
                         VerticalAlignment="Top"/>
 
-                    <Button
+                        <Button
                         Style="{StaticResource BtnRedac}"
                         Margin="0,0,136.2,24"
                         VerticalAlignment="Bottom"
@@ -96,12 +96,12 @@
                         HorizontalAlignment="Right"
                         Width="105"
                         Click="Click_User_Redact">
-                        <Image Source="/img/redac.png"
+                            <Image Source="/img/redac.png"
                                Width="20"
                                Height="20"/>
-                    </Button>
+                        </Button>
 
-                    <Button
+                        <Button
                         x:Name="btn_cancel"
                         Style="{StaticResource BtnRedac}"
                         Background="#FFE48F2B"
@@ -111,27 +111,28 @@
                         HorizontalAlignment="Right"
                         Width="105"
                         Click="Click_Cancel_User_Redact">
-                        <Image Source="/img/back.png"
+                            <Image Source="/img/back.png"
                                Width="20"
                                Height="20"/>
-                    </Button>
+                        </Button>
 
-                    <Button
+                        <Button
                         x:Name="btn_remove"
-                        Style="{StaticResourceResource BtnRedac}"
-                        Background="#FFE48F2B"
-                        Margin="30,0,0,23.6"
+                        Style="{StaticResource BtnRedac}"
+                        Background="#FFE42B2B"
+                        Margin="0,0,556,24"
                         VerticalAlignment="Bottom"
                         Height="40"
                         HorizontalAlignment="Right"
                         Width="105"
                         Click="Click_Remove_User_Redact">
-                        <Image Source="/img/del.png"
+                            <Image Source="/img/del.png"
                                Width="20"
                                Height="20"/>
-                    </Button>
-                </Grid>
-            </Border>
-        </ScrollViewer>
-    </Grid>
+                        </Button>
+                    </Grid>
+                </Border>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 </Page>

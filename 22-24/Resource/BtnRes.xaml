@@ -166,9 +166,9 @@
                     <BeginStoryboard>
                         <Storyboard>
                             <ColorAnimation To="#FF959595" Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
-                                            FillBehavior="HoldEnd" Duration="0:0:0:0.2"/>
+                                        FillBehavior="HoldEnd" Duration="0:0:0:0.2"/>
                             <ColorAnimation To="White" Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)"
-                                            FillBehavior="HoldEnd" Duration="0:0:0:0.2"/>
+                                        FillBehavior="HoldEnd" Duration="0:0:0:0.2"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger.Actions>
@@ -195,23 +195,12 @@
                             <SolidColorBrush Color="#FFDEDEDE" Opacity="1.0"/>
                         </Border.Background>
                         <Grid>
-                            <DatePickerTextBox x:Name="PART_TextBox"
-                                               Background="{x:Null}"
-                                               BorderBrush="{x:Null}"
-                                               BorderThickness="0"
-                                               Padding="{TemplateBinding Padding}"
-                                               HorizontalContentAlignment="Stretch"
-                                               VerticalContentAlignment="Center"
-                                               Visibility="Visible">
+                            <DatePickerTextBox x:Name="PART_TextBox">
                                 <DatePickerTextBox.Template>
                                     <ControlTemplate TargetType="DatePickerTextBox">
-                                        <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                        <Grid>
                                             <ContentControl Focusable="False" IsHitTestVisible="False" Opacity="1"/>
-                                            <ScrollViewer x:Name="PART_ContentHost"
-                                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                          Margin="0"
-                                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            <ScrollViewer x:Name="PART_ContentHost"/>
                                         </Grid>
                                     </ControlTemplate>
                                 </DatePickerTextBox.Template>
