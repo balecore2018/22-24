@@ -51,7 +51,7 @@
 
             <Grid MinHeight="300">
                 <ScrollViewer x:Name="scroll_main">
-                    <StackPanel x:Name="parrent">
+                    <StackPanel x:Name="parrent" Background="White">
 
                     </StackPanel>
                 </ScrollViewer>

@@ -61,7 +61,7 @@ namespace _22_24.Elements
                         return;
                     }
                 }
-                string vs1 = $"DELETE FROM [calls] WHERE [iser_id] = '{user_loc.id.ToString()}'";
+                string vs1 = $"DELETE FROM [calls] WHERE [user_id] = {user_loc.id}";
                 var pc1 = MainWindow.connect.QueryAccess(vs1);
 
                 string vs = "DELETE FROM [users] WHERE [Код] = " + user_loc.id.ToString() + "";

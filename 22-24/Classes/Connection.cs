@@ -115,10 +115,12 @@ namespace _22_24.Classes
                             newEl.date = Convert.ToString(reader["date"]);
                             newEl.time_start = Convert.ToString(reader["time_start"]);
                             newEl.time_end = Convert.ToString(reader["time_end"]);
+
+
                             calls.Add(newEl);
                         }
+                        reader.Close();
                     }
-                    reader.Close();
                 }
             }
             catch (Exception ex)

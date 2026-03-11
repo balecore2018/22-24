@@ -85,57 +85,80 @@ namespace _22_24.Pages
                 parrent.BeginAnimation(StackPanel.OpacityProperty, opgridAnimation);
             }
         }
+        //private void Click_History(object sender, RoutedEventArgs e)
+        //{
+        //    if (frame_main.Visibility == Visibility.Visible)
+        //    {
+        //        MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main);
+        //    }
+        //    if (page_select != page_main.calls)
+        //    {
+        //        page_select = page_main.calls;
+
+        //        DoubleAnimation opgridAnimation = new DoubleAnimation();
+        //        opgridAnimation.From = 1;
+        //        opgridAnimation.To = 0;
+        //        opgridAnimation.Duration = TimeSpan.FromSeconds(0.2);
+        //        opgridAnimation.Completed += delegate
+        //        {
+        //            DoubleAnimation opgriAnimation = new DoubleAnimation();
+        //            opgriAnimation.From = 1;
+        //            opgriAnimation.To = 0;
+        //            opgriAnimation.Duration = TimeSpan.FromSeconds(0.2);
+        //            opgriAnimation.Completed += delegate
+        //            {
+        //                Dispatcher.InvokeAsync(async () =>
+        //                {
+        //                    MainWindow.connect.LoadData(Connection.tabels.calls);
+
+        //                    // parrent - это StackPanel из Main.xaml
+        //                    parrent.Children.Clear(); // ОЧИЩАЕМ сначала!
+
+        //                    foreach (Call call_itm in MainWindow.connect.calls)
+        //                    {
+        //                        if (page_select == page_main.calls)
+        //                        {
+        //                            var element = new Elements.Call_itm(call_itm);
+        //                            element.Margin = new Thickness(5); // Добавим отступ
+        //                            parrent.Children.Add(element);
+        //                            await Task.Delay(90);
+        //                        }
+        //                    }
+
+        //                    // Добавляем кнопку добавления
+        //                    if (page_select == page_main.calls)
+        //                    {
+        //                        var ff = new Pages.PagesUser.Call_win(new Call());
+        //                        parrent.Children.Add(new Elements.Add_itm(ff));
+        //                    }
+        //                });
+        //            };
+
+        //            parrent.BeginAnimation(StackPanel.OpacityProperty, opgriAnimation);
+        //        };
+        //        parrent.BeginAnimation(StackPanel.OpacityProperty, opgridAnimation);
+        //    }
+
+
         private void Click_History(object sender, RoutedEventArgs e)
         {
-            if (frame_main.Visibility == Visibility.Visible)
+            parrent.Children.Clear();
+            page_select = page_main.calls;
+
+            // ЗАГРУЖАЕМ ДАННЫЕ
+            MainWindow.connect.LoadData(Connection.tabels.calls);
+
+
+            foreach (Call call_itm in MainWindow.connect.calls)
             {
-                MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main);
+                var element = new Elements.Call_itm(call_itm);
+                element.Margin = new Thickness(5); // Яркий цвет
+                parrent.Children.Add(element);
             }
-            if (page_select != page_main.calls)
-            {
-                page_select = page_main.calls;
 
-                DoubleAnimation opgridAnimation = new DoubleAnimation();
-                opgridAnimation.From = 1;
-                opgridAnimation.To = 0;
-                opgridAnimation.Duration = TimeSpan.FromSeconds(0.2);
-                opgridAnimation.Completed += delegate
-                {
-                    parrent.Children.Clear();
-                    DoubleAnimation opgriAnimation = new DoubleAnimation();
-                    opgriAnimation.From = 0;
-                    opgriAnimation.To = 1;
-                    opgriAnimation.Duration = TimeSpan.FromSeconds(0.2);
-                    opgriAnimation.Completed += delegate
-                    {
-                        Dispatcher.InvokeAsync(async () =>
-                        {
-                            MainWindow.connect.LoadData(Connection.tabels.calls);
-
-                            foreach (Call call_itm in MainWindow.connect.calls)
-                            {
-                                if (page_select == page_main.calls)
-                                {
-                                    parrent.Children.Add(new Elements.Call_itm(call_itm));
-                                    await Task.Delay(90);
-                                }
-                            }
-                            if (page_select == page_main.calls)
-                            {
-                                var ff = new Pages.PagesUser.Call_win(new Call());
-                                parrent.Children.Add(new Elements.Add_itm(ff));
-                            }
-                        });
-                    };
-
-
-
-                    parrent.BeginAnimation(StackPanel.OpacityProperty, opgriAnimation);
-
-                };
-                parrent.BeginAnimation(StackPanel.OpacityProperty, opgridAnimation);
-            }
-        }
+            // Добавляем кнопку добавления
+            var ff = new Pages.PagesUser.Call_win(new Call());
+            parrent.Children.Add(new Elements.Add_itm(ff));        }
 
         public void Anim_move(Control control1, Control control2, Frame frame_main = null, Page pages = null, page_main page_restart = page_main.none)
         {

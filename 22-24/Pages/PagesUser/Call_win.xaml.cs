@@ -35,10 +35,41 @@ namespace _22_24.Pages.PagesUser
                 date_start_call.SelectedDate = new DateTime(int.Parse(dateStart[2]), int.Parse(dateStart[1]), int.Parse(dateStart[0]));
                 time_start.Text = dateTimeStart[1];
 
-                string[] dateTimeFinish = _call.time_end.Split(' ');
-                string[] dateFinish = dateTimeFinish[0].Split('.');
-                date_end_call.SelectedDate = new DateTime(int.Parse(dateFinish[2]), int.Parse(dateFinish[1]), int.Parse(dateFinish[0]));
-                time_finish.Text = dateTimeFinish[1];
+                if (!string.IsNullOrEmpty(_call.time_end))
+                {
+                    string[] dateTimeFinish = _call.time_end.Split(' ');
+
+                    if (dateTimeFinish.Length >= 2)
+                    {
+                        // Парсим дату
+                        string[] dateFinish = dateTimeFinish[0].Split('.');
+                        if (dateFinish.Length == 3)
+                        {
+                            try
+                            {
+                                date_end_call.SelectedDate = new DateTime(
+                                    int.Parse(dateFinish[2]),
+                                    int.Parse(dateFinish[1]),
+                                    int.Parse(dateFinish[0]));
+                            }
+                            catch
+                            {
+                                date_end_call.SelectedDate = DateTime.Today;
+                            }
+                        }
+
+                        // Парсим время
+                        time_finish.Text = dateTimeFinish[1];
+                    }
+                    else
+                    {
+                        time_finish.Text = "00:00";
+                    }
+                }
+                else
+                {
+                    time_finish.Text = "00:00";
+                }
             }
             else
             {
@@ -108,32 +139,40 @@ namespace _22_24.Pages.PagesUser
                         return;
                     }
 
-                    if (call_itm.time_end == null)
+                    if (call_itm.time_end == null) // Новый звонок
                     {
-                        int id = MainWindow.connect.SetLastId(Connection.tabels.calls);
+                        string dateStartStr = date_start_call.SelectedDate.Value.ToString("dd.MM.yyyy");
+                        string dateEndStr = date_end_call.SelectedDate.Value.ToString("dd.MM.yyyy");
 
-                        string query = $"INSERT INTO [calls]([Код], [user_id], [category_call], [date], [time_start], [time_end]) VALUES (({id.ToString()}), " +
-                            $"'{id_temp_user.id.ToString()}', '{id_calls_categ.ToString()}', '{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]}', " +
-                            $"'{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]}', '{time_start.Text}')" +
-                            $"'{date_end_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_finish.Text}')";
+                        string query = $"INSERT INTO [calls] ([user_id], [category_call], [date], [time_start], [time_end]) " +
+                                       $"VALUES ({id_temp_user.id}, {id_calls_categ}, '{dateStartStr}', " +
+                                       $"'{dateStartStr} {time_start.Text}', '{dateEndStr} {time_finish.Text}');";
 
                         var pc = MainWindow.connect.QueryAccess(query);
+
                         if (pc != null)
                         {
                             MainWindow.connect.LoadData(Connection.tabels.calls);
-                            //MainWindow.warningBox.Show(warn("Успешно", "Успешное изменение оборудования", "pack:///application:,,,/img/good_write.png"));
                             MessageBox.Show("Успешное добавление звонка", "Успешное", MessageBoxButton.OK, MessageBoxImage.Information);
                             MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.calls);
                         }
-                        else MessageBox.Show("Запрос на добавление звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        else
+                        {
+                            MessageBox.Show("Запрос на добавление звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
                     }
                     else
                     {
-                        string query = $"UPDATE [calls] SET [user_id] = '{id_temp_user.id.ToString()}', " +
-                        $"[category_call]={id_calls_categ.ToString()}', " +
-                        $"[date_start]='{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]}', " +
-                        $"[time_start]='{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_start.Text}', " +
-                        $"[time_end]='{date_end_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_finish.Text}' WHERE Код = {call_itm.id}";
+                        string dateStartStr = date_start_call.SelectedDate.Value.ToString("dd.MM.yyyy");
+                        string dateEndStr = date_end_call.SelectedDate.Value.ToString("dd.MM.yyyy");
+
+                        string query = $"UPDATE [calls] SET " +
+                                      $"[user_id] = {id_temp_user.id}, " +
+                                      $"[category_call] = {id_calls_categ}, " +
+                                      $"[date] = '{dateStartStr}', " +
+                                      $"[time_start] = '{dateStartStr} {time_start.Text}', " +
+                                      $"[time_end] = '{dateEndStr} {time_finish.Text}' " +
+                                      $"WHERE [Код] = {call_itm.id};";
 
                         var pc = MainWindow.connect.QueryAccess(query);
                         if (pc != null)
@@ -144,7 +183,6 @@ namespace _22_24.Pages.PagesUser
                         }
                         else MessageBox.Show("Запрос на изменение звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
-
                 }
                 else MessageBox.Show("Дата старта больше чем дата конца");
             }
@@ -172,7 +210,6 @@ namespace _22_24.Pages.PagesUser
                 }
                 else MessageBox.Show("Запрос на удаление звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
@@ -202,11 +239,11 @@ namespace _22_24.Pages.PagesUser
         }
     }
 }
-  
 
 
 
 
 
 
-        
+
+
