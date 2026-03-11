@@ -5,16 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using static _22_24.Classes.Common;
 
 namespace _22_24.Classes
 {
     public class Connection
     {
-
-        public bool ItsOnlyFIO { get; set; }
-        public bool ItsNumber { get; set; }
-
         public List<User> users = new List<User>();
         public List<Call> calls = new List<Call>();
 
@@ -24,21 +21,109 @@ namespace _22_24.Classes
         }
 
         public string localPath = "";
+
+        // МЕТОД QUERYACCESS (для SELECT запросов)
         public OleDbDataReader QueryAccess(string query)
         {
             try
             {
                 localPath = Directory.GetCurrentDirectory();
-                OleDbConnection connect = new OleDbConnection(@"Provider=Mircosoft.ACE.OLEDB.12.0;Data Source=" +
-                    localPath + "/accesbase.accdb");
+                string dbPath = localPath + "\\accesbase.accdb";
+                string connString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPath;
+
+                OleDbConnection connect = new OleDbConnection(connString);
                 connect.Open();
                 OleDbCommand cmd = new OleDbCommand(query, connect);
                 OleDbDataReader reader = cmd.ExecuteReader();
                 return reader;
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show("Ошибка QueryAccess: " + ex.Message);
                 return null;
+            }
+        }
+
+        // МЕТОД EXECUTENONQUERY (для INSERT/UPDATE/DELETE запросов)
+        public bool ExecuteNonQuery(string query)
+        {
+            try
+            {
+                localPath = Directory.GetCurrentDirectory();
+                string dbPath = localPath + "\\accesbase.accdb";
+                string connString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPath;
+
+                using (OleDbConnection connect = new OleDbConnection(connString))
+                {
+                    connect.Open();
+
+                    // Добавляем точку с запятой, если её нет
+                    if (!query.Trim().EndsWith(";"))
+                    {
+                        query = query.Trim() + ";";
+                    }
+
+                    OleDbCommand cmd = new OleDbCommand(query, connect);
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка ExecuteNonQuery: " + ex.Message + "\n\nЗапрос: " + query);
+                return false;
+            }
+        }
+
+        public void LoadData(tabels zap)
+        {
+            try
+            {
+                string dbPath = Directory.GetCurrentDirectory() + "\\accesbase.accdb";
+                string connString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + dbPath;
+
+                using (OleDbConnection connect = new OleDbConnection(connString))
+                {
+                    connect.Open();
+                    string query = "SELECT * FROM [" + zap.ToString() + "]";
+                    OleDbCommand cmd = new OleDbCommand(query, connect);
+                    OleDbDataReader reader = cmd.ExecuteReader();
+
+                    if (zap.ToString() == "users")
+                    {
+                        users.Clear();
+                        while (reader.Read())
+                        {
+                            User newEl = new User();
+                            newEl.id = Convert.ToInt32(reader["Код"]);
+                            newEl.phone_num = Convert.ToString(reader["phone_num"]);
+                            newEl.fio_user = Convert.ToString(reader["FIO_user"]);
+                            newEl.pasport_data = Convert.ToString(reader["pasport_data"]);
+                            users.Add(newEl);
+                        }
+                    }
+
+                    if (zap.ToString() == "calls")
+                    {
+                        calls.Clear();
+                        while (reader.Read())
+                        {
+                            Call newEl = new Call();
+                            newEl.id = Convert.ToInt32(reader["Код"]);
+                            newEl.user_id = Convert.ToInt32(reader["user_id"]);
+                            newEl.category_call = Convert.ToInt32(reader["category_call"]);
+                            newEl.date = Convert.ToString(reader["date"]);
+                            newEl.time_start = Convert.ToString(reader["time_start"]);
+                            newEl.time_end = Convert.ToString(reader["time_end"]);
+                            calls.Add(newEl);
+                        }
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка LoadData: " + ex.Message);
             }
         }
 
@@ -52,67 +137,26 @@ namespace _22_24.Classes
                     case "users":
                         if (users.Count >= 1)
                         {
-                            int max_status = users[0].id;
-                            max_status = users.Max(x => x.id);
+                            int max_status = users.Max(x => x.id);
                             return max_status + 1;
                         }
                         else return 1;
                     case "calls":
                         if (calls.Count >= 1)
                         {
-                            int max_status = calls[0].id;
-                            max_status = calls.Max(x => x.id);
+                            int max_status = calls.Max(x => x.id);
                             return max_status + 1;
                         }
                         else return 1;
                 }
-                return -1;
+                return 1;
             }
-            catch { return -1; }
-        }
-
-        public void LoadData(tabels zap)
-        {
-            try
+            catch (Exception ex)
             {
-                OleDbDataReader itemQuery = QueryAccess("SELECT * FROM [" + zap.ToString() + "] ORDER BY [Код]");
-
-                if (zap.ToString() == "users")
-                {
-                    users.Clear();
-                    while (itemQuery.Read())
-                    {
-                        User newEl = new User();
-                        newEl.id = (int)Convert.ToUInt32(itemQuery.GetValue(0));
-                        newEl.phone_num = Convert.ToString(itemQuery.GetValue(1));
-                        newEl.fio_user = Convert.ToString(itemQuery.GetValue(2));
-                        newEl.pasport_data = Convert.ToString(itemQuery.GetValue(3));
-
-                        users.Add(newEl);
-                    }
-                }
-
-                if (zap.ToString() == "calls")
-                {
-                    calls.Clear();
-                    while (itemQuery.Read())
-                    {
-                        Call newEl = new Call();
-                        newEl.id = (int)Convert.ToUInt32(itemQuery.GetValue(0));
-                        newEl.user_id = (int)Convert.ToUInt32(itemQuery.GetValue(1));
-                        newEl.category_call = (int)Convert.ToUInt32(itemQuery.GetValue(2));
-                        newEl.date = Convert.ToString(itemQuery.GetValue(3));
-                        newEl.time_start = Convert.ToString(itemQuery.GetValue(4));
-                        newEl.time_end = Convert.ToString(itemQuery.GetValue(5));
-                        calls.Add(newEl);
-                    }
-                }
-                if (itemQuery != null) itemQuery.Close();
-            }
-            catch
-            {
-                Console.WriteLine("NULL");
+                MessageBox.Show("Ошибка в SetLastId: " + ex.Message);
+                return 1;
             }
         }
     }
 }
+

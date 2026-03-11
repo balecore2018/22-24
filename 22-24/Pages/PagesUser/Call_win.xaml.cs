@@ -181,7 +181,7 @@ namespace _22_24.Pages.PagesUser
 
         public bool CheckTime(string str)
         {
-            string[] str1 = str.Split(';');
+            string[] str1 = str.Split(':');
             if (str1.Length == 2)
             {
                 if (str1[0].Trim() != "" && str1[1].Trim() != "")

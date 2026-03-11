@@ -1,6 +1,8 @@
 ﻿using _22_24.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static _22_24.Classes.Common;
 
 namespace _22_24
 {
@@ -54,5 +57,9 @@ namespace _22_24
             };
             frame.BeginAnimation(Frame.OpacityProperty, opgridAnimation);
         }
+
+
+
+        
     }
 }

@@ -11,8 +11,10 @@ namespace _22_24.Classes
     {
         public bool IsNumber(string str)
         {
-            Match m = Regex.Match(str, @"\+79[0-9]{9}$");
+            string cleanStr = str.Trim();
+            Match m = Regex.Match(cleanStr, @"\+79[0-9]{9}$");
             return m.Success;
+
         }
 
         public bool IsFio(string str)

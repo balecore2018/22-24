@@ -22,7 +22,7 @@
         <ScrollViewer x:Name="scroll_user">
             <Border x:Name="Info_User" MinHeight="530">
                     <Grid>
-                        <Label Content="Закон" Margin="39,28,26,0" Foreground="Black" FontSize="30" FontFamily="Yu Gothic UI Semibold" HorizontalContentAlignment="Left" Height="52" VerticalAlignment="Top"/>
+                        <Label Content="Звонок" Margin="39,28,26,0" Foreground="Black" FontSize="30" FontFamily="Yu Gothic UI Semibold" HorizontalContentAlignment="Left" Height="52" VerticalAlignment="Top"/>
                         <Label Content="Клиент" Margin="42,85,26,0" Foreground="Black" FontSize="15" FontFamily="Yu Gothic UI Semibold" HorizontalContentAlignment="Left" Height="29" VerticalAlignment="Top"/>
                         <ComboBox x:Name="user_select" FontFamily="Yu Gothic UI Semibold" Margin="42,114,243,0" Height="30" VerticalAlignment="Top" FontSize="14"/>
 

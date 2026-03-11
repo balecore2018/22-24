@@ -50,9 +50,10 @@ namespace _22_24.Pages
                 opgridAnimation.Duration = TimeSpan.FromSeconds(0.2);
                 opgridAnimation.Completed += delegate
                 {
+                    parrent.Children.Clear();
                     DoubleAnimation opgriAnimation = new DoubleAnimation();
-                    opgriAnimation.From = 1;
-                    opgriAnimation.To = 0;
+                    opgriAnimation.From = 0;
+                    opgriAnimation.To = 1;
                     opgriAnimation.Duration = TimeSpan.FromSeconds(0.2);
                     opgriAnimation.Completed += delegate
                     {
@@ -70,6 +71,7 @@ namespace _22_24.Pages
                                     await Task.Delay(90);
                                 }
                             }
+
                             if (page_select == page_main.users)
                             {
                                 var ff = new Pages.PagesUser.User_win(new User());
@@ -99,9 +101,10 @@ namespace _22_24.Pages
                 opgridAnimation.Duration = TimeSpan.FromSeconds(0.2);
                 opgridAnimation.Completed += delegate
                 {
+                    parrent.Children.Clear();
                     DoubleAnimation opgriAnimation = new DoubleAnimation();
-                    opgriAnimation.From = 1;
-                    opgriAnimation.To = 0;
+                    opgriAnimation.From = 0;
+                    opgriAnimation.To = 1;
                     opgriAnimation.Duration = TimeSpan.FromSeconds(0.2);
                     opgriAnimation.Completed += delegate
                     {
